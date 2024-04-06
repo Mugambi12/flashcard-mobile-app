@@ -1,1 +1,1 @@
-# Flashcard mobile app using React Native
+# Flashcard Mobile App using React Native
