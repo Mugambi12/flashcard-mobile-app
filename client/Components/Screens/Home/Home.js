@@ -7,6 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const Home = ({ onLogout }) => {
   return (
@@ -106,6 +107,20 @@ const renderTransactionSection = () => (
   </View>
 );
 
+const colors = {
+  primary: "#007bff",
+  secondary: "#6c757d",
+  success: "#28a745",
+  danger: "#dc3545",
+  warning: "#ffc107",
+  info: "#17a2b8",
+  light: "#f8f9fa",
+  dark: "#343a40",
+  black: "#000",
+  white: "#fff",
+  borderColor: "#ced4da",
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -124,8 +139,9 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     zIndex: 1,
-    backgroundColor: "#25D366",
-    boxShadow: "0 0 5px rgba(0, 0, 0, 0.5)",
+    color: colors.white,
+    backgroundColor: colors.success,
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   },
   content: {
     flexGrow: 1,
@@ -142,11 +158,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   card: {
-    backgroundColor: "#f0f0f0",
+    backgroundColor: colors.white,
     padding: 20,
     marginBottom: 20,
     borderRadius: 10,
-    shadowColor: "#000",
+    shadowColor: colors.black,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -164,11 +180,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   section: {
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     padding: 20,
     marginBottom: 20,
     borderRadius: 10,
-    shadowColor: "#000",
+    shadowColor: colors.black,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -198,7 +214,7 @@ const styles = StyleSheet.create({
   chart: {
     width: "100%",
     height: 200,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: colors.light,
   },
   navBar: {
     flexDirection: "row",
@@ -211,10 +227,11 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     zIndex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.light,
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   },
   historyButton: {
-    backgroundColor: "#25D366",
+    backgroundColor: colors.primary,
     borderRadius: 50,
     padding: 6,
     marginTop: -12,
