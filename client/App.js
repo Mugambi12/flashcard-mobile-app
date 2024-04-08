@@ -31,7 +31,7 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.body}>
       {!loggedIn && !showRegister ? (
         <Login onLogin={handleLogin} onRegister={handleRegister} />
       ) : showRegister ? (

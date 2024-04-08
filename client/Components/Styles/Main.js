@@ -3,6 +3,15 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+  body: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    padding: 0,
+    margin: 0,
+  },
   container: {
     flex: 1,
     alignItems: "center",
