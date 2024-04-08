@@ -27,12 +27,9 @@ const Home = ({ onLogout }) => {
         {renderCard("Expenses", "$1500")}
         {renderCard("Savings", "$500")}
 
-        {renderSection("Charts", "Placeholder for charts")}
-        {renderSection("Reports", "Placeholder for reports")}
-        {renderSection(
-          "Recent Transactions",
-          "Placeholder for recent transactions"
-        )}
+        {renderChartSection()}
+        {renderReportSection()}
+        {renderTransactionSection()}
       </ScrollView>
 
       <View style={styles.navBar}>
@@ -66,10 +63,46 @@ const renderCard = (title, value) => (
   </View>
 );
 
-const renderSection = (title, placeholder) => (
+const renderChartSection = () => (
   <View style={styles.section}>
-    <Text style={styles.sectionTitle}>{title}</Text>
-    <Text>{placeholder}</Text>
+    <Text style={styles.sectionTitle}>Charts</Text>
+
+    <View style={styles.chartContainer}>
+      <Text style={styles.chartTitle}>Charts Title Goes Here</Text>
+      <Text style={styles.chartSubTitle}>Charts Title Goes Here</Text>
+      {/* Dummy chart component */}
+      <View style={styles.chart}></View>
+    </View>
+
+    <View style={styles.chartContainer}>
+      <Text style={styles.chartTitle}>Charts Title Goes Here</Text>
+      <Text style={styles.chartSubTitle}>Charts Title Goes Here</Text>
+      {/* Dummy chart component */}
+      <View style={styles.chart}></View>
+    </View>
+
+    <View style={styles.chartContainer}>
+      <Text style={styles.chartTitle}>Charts Title Goes Here</Text>
+      <Text style={styles.chartSubTitle}>Charts Title Goes Here</Text>
+      {/* Dummy chart component */}
+      <View style={styles.chart}></View>
+    </View>
+  </View>
+);
+
+const renderReportSection = () => (
+  <View style={styles.section}>
+    <Text style={styles.sectionTitle}>Reports</Text>
+    {/* Placeholder for reports */}
+    <Text>No reports available</Text>
+  </View>
+);
+
+const renderTransactionSection = () => (
+  <View style={styles.section}>
+    <Text style={styles.sectionTitle}>Recent Transactions</Text>
+    {/* Placeholder for recent transactions */}
+    <Text>No recent transactions</Text>
   </View>
 );
 
@@ -78,11 +111,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    maxWidth: "100%",
-    minWidth: "100%",
+    width: "100%",
   },
-
-  /* Menu at the top of the screen */
   menu: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -95,16 +125,15 @@ const styles = StyleSheet.create({
     left: 0,
     zIndex: 1,
     backgroundColor: "#25D366",
-    maxWidth: "100%",
     boxShadow: "0 0 5px rgba(0, 0, 0, 0.5)",
   },
-
-  /* Main content area */
   content: {
     flexGrow: 1,
+    width: "100%",
     maxWidth: "100%",
     minWidth: "100%",
     paddingTop: 100,
+    paddingBottom: 70,
     paddingVertical: 20,
     paddingHorizontal: 10,
   },
@@ -134,7 +163,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-
   section: {
     backgroundColor: "#fff",
     padding: 20,
@@ -154,8 +182,24 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
   },
-
-  /* Navigation bar at the bottom of the screen */
+  chartContainer: {
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  chartTitle: {
+    fontSize: 18,
+    marginBottom: 5,
+  },
+  chartSubTitle: {
+    fontSize: 14,
+    fontStyle: "italic",
+    marginBottom: 10,
+  },
+  chart: {
+    width: "100%",
+    height: 200,
+    backgroundColor: "#e0e0e0",
+  },
   navBar: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -168,7 +212,6 @@ const styles = StyleSheet.create({
     left: 0,
     zIndex: 1,
     backgroundColor: "#fff",
-    maxWidth: "100%",
   },
   historyButton: {
     backgroundColor: "#25D366",

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Login from "./Components/Screens/Auth/Login";
 import Register from "./Components/Screens/Auth/Register";
 import Home from "./Components/Screens/Home/Home";
-import styles from "./Components/Styles/Main";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -43,3 +42,15 @@ export default function App() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  body: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    padding: 0,
+    margin: 0,
+  },
+});
