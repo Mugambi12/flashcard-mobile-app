@@ -5,56 +5,73 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  Pressable,
 } from "react-native";
-import Icon from "react-native-ico-material-design";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const Home = ({ onLogout }) => {
   return (
     <View style={styles.container}>
       <View style={styles.menu}>
-        {/* Menu items go here */}
-        <TouchableOpacity onPress={() => console.log("Menu item 1 pressed")}>
-          <Text style={styles.menuItem}>Menu 1</Text>
+        <TouchableOpacity onPress={() => console.log("Menu pressed")}>
+          <Icon name="menu" size={24} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log("Menu item 2 pressed")}>
-          <Text style={styles.menuItem}>Menu 2</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log("Menu item 3 pressed")}>
-          <Text style={styles.menuItem}>Menu 3</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
-          <Text style={styles.buttonText}>Logout</Text>
+        <TouchableOpacity onPress={onLogout}>
+          <Icon name="logout" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
 
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Home</Text>
-        <Text>Welcome to Home Page Eng. Silas Mugambi</Text>
-        <Text>This is home page of the personal budgeting app</Text>
+        <Text style={styles.title}>Dashboard</Text>
+
+        {renderCard("Budget", "$2000")}
+        {renderCard("Expenses", "$1500")}
+        {renderCard("Savings", "$500")}
+
+        {renderSection("Charts", "Placeholder for charts")}
+        {renderSection("Reports", "Placeholder for reports")}
+        {renderSection(
+          "Recent Transactions",
+          "Placeholder for recent transactions"
+        )}
       </ScrollView>
 
       <View style={styles.navBar}>
-        {/* Navigation bar buttons go here */}
-        <TouchableOpacity onPress={() => console.log("Button 1 pressed")}>
-          <Text style={styles.navButton}>Home</Text>
+        <TouchableOpacity onPress={() => console.log("Home pressed")}>
+          <Icon name="home" size={24} color="#007bff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log("Button 2 pressed")}>
-          <Text style={styles.navButton}>Button 2</Text>
+        <TouchableOpacity onPress={() => console.log("Money pressed")}>
+          <Icon name="attach-money" size={24} color="#007bff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log("Button 3 pressed")}>
-          <Text style={styles.navButton}>Button 3</Text>
+        <TouchableOpacity
+          onPress={() => console.log("History pressed")}
+          style={styles.historyButton}
+        >
+          <Icon name="list" size={36} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log("Button 4 pressed")}>
-          <Text style={styles.navButton}>Button 4</Text>
+        <TouchableOpacity onPress={() => console.log("Settings pressed")}>
+          <Icon name="settings" size={24} color="#007bff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log("Button 5 pressed")}>
-          <Text style={styles.navButton}>Button 5</Text>
+        <TouchableOpacity onPress={() => console.log("Profile pressed")}>
+          <Icon name="person" size={24} color="#007bff" />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
+
+const renderCard = (title, value) => (
+  <View style={styles.card}>
+    <Text style={styles.cardTitle}>{title}</Text>
+    <Text style={styles.cardValue}>{value}</Text>
+  </View>
+);
+
+const renderSection = (title, placeholder) => (
+  <View style={styles.section}>
+    <Text style={styles.sectionTitle}>{title}</Text>
+    <Text>{placeholder}</Text>
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -62,24 +79,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     maxWidth: "100%",
-    padding: 0,
-    margin: 0,
+    minWidth: "100%",
   },
-  content: {
-    flexGrow: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    maxWidth: "100%",
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
+
+  /* Menu at the top of the screen */
   menu: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingTop: 50,
+    paddingBottom: 20,
     width: "100%",
     position: "absolute",
     top: 0,
@@ -87,29 +96,72 @@ const styles = StyleSheet.create({
     zIndex: 1,
     backgroundColor: "#25D366",
     maxWidth: "100%",
+    boxShadow: "0 0 5px rgba(0, 0, 0, 0.5)",
   },
-  menuItem: {
-    fontSize: 16,
-    color: "#007bff",
+
+  /* Main content area */
+  content: {
+    flexGrow: 1,
+    maxWidth: "100%",
+    minWidth: "100%",
+    paddingTop: 100,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
   },
-  logoutButton: {
-    backgroundColor: "#007bff",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
   },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
+  card: {
+    backgroundColor: "#f0f0f0",
+    padding: 20,
+    marginBottom: 20,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  cardTitle: {
+    fontSize: 18,
+    marginBottom: 5,
+  },
+  cardValue: {
+    fontSize: 24,
     fontWeight: "bold",
   },
+
+  section: {
+    backgroundColor: "#fff",
+    padding: 20,
+    marginBottom: 20,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+
+  /* Navigation bar at the bottom of the screen */
   navBar: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 20,
+    paddingTop: 15,
     paddingBottom: 20,
-    borderTopWidth: 1,
-    borderColor: "#ccc",
     width: "100%",
     position: "absolute",
     bottom: 0,
@@ -118,9 +170,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     maxWidth: "100%",
   },
-  navButton: {
-    fontSize: 16,
-    color: "#007bff",
+  historyButton: {
+    backgroundColor: "#25D366",
+    borderRadius: 50,
+    padding: 6,
+    marginTop: -12,
   },
 });
 

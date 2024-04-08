@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     marginBottom: 20,
-    paddingVertical: 10,
+    padding: 10,
   },
   input: {
     width: 250,
