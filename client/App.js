@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { View, StyleSheet } from "react-native";
+
 import Login from "./Components/Screens/Auth/Login";
 import Register from "./Components/Screens/Auth/Register";
 import Menu from "./Components/Screens/Navigation/Menu";
@@ -38,14 +39,20 @@ export default function App() {
 
   return (
     <View style={styles.body}>
-      {loggedIn && !showRegister && <Menu />}
-      {loggedIn && !showRegister && <NavBar />}
+      {loggedIn && !showRegister && <Menu onLogout={handleLogout} />}
+      {loggedIn && !showRegister && (
+        <NavBar
+          navigateToScreen={navigateToScreen}
+          currentScreen={currentScreen}
+        />
+      )}
+
       {!loggedIn && !showRegister ? (
         <Login onLogin={handleLogin} onRegister={handleRegister} />
       ) : showRegister ? (
         <Register onLogin={handleBackToLogin} />
       ) : currentScreen === "Home" ? (
-        <Home onLogout={handleLogout} navigateToScreen={navigateToScreen} />
+        <Home />
       ) : currentScreen === "Money" ? (
         <Money />
       ) : currentScreen === "History" ? (
