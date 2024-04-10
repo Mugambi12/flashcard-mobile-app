@@ -1,25 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import colors from "../../Styles/Colors";
 
-const Home = ({ onLogout }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  const handleScroll = (event) => {
-    if (event.nativeEvent.contentOffset.y > 0) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
-  };
-
+const Home = () => {
   return (
     <View style={styles.container}>
-      <ScrollView
-        contentContainerStyle={styles.content}
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
-      >
+      <ScrollView style={styles.content}>
         <Text style={styles.title}>Dashboard</Text>
 
         {renderCard("Budget", "$2000")}
