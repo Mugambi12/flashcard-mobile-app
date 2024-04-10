@@ -3,38 +3,71 @@ import { View, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import colors from "../../Styles/Colors";
 
-const NavBar = () => {
+const NavBar = ({ navigateToScreen, currentScreen }) => {
   return (
     <View style={styles.navBar}>
       <TouchableOpacity
         style={styles.navBarButton}
-        onPress={() => console.log("Home pressed")}
+        onPress={() => navigateToScreen("Home")}
       >
-        <Icon name="home" size={24} style={styles.navBarIcon} />
+        <Icon
+          name="home"
+          size={24}
+          style={[
+            styles.navBarIcon,
+            currentScreen === "Home" && styles.navBarIconActive,
+          ]}
+        />
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.navBarButton}
-        onPress={() => console.log("Money pressed")}
+        onPress={() => navigateToScreen("Money")}
       >
-        <Icon name="attach-money" size={24} style={styles.navBarIcon} />
+        <Icon
+          name="attach-money"
+          size={24}
+          style={[
+            styles.navBarIcon,
+            currentScreen === "Money" && styles.navBarIconActive,
+          ]}
+        />
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.navBarButton, styles.historyButton]}
-        onPress={() => console.log("History pressed")}
+        onPress={() => navigateToScreen("History")}
       >
-        <Icon name="list" size={24} color="#fff" />
+        <Icon
+          name="list"
+          size={24}
+          color={colors.light}
+          style={[currentScreen === "History" && styles.navBarIconActive]}
+        />
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.navBarButton}
-        onPress={() => console.log("Settings pressed")}
+        onPress={() => navigateToScreen("Settings")}
       >
-        <Icon name="settings" size={24} style={styles.navBarIcon} />
+        <Icon
+          name="settings"
+          size={24}
+          style={[
+            styles.navBarIcon,
+            currentScreen === "Settings" && styles.navBarIconActive,
+          ]}
+        />
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.navBarButton}
-        onPress={() => console.log("Profile pressed")}
+        onPress={() => navigateToScreen("Profile")}
       >
-        <Icon name="person" size={24} style={styles.navBarIcon} />
+        <Icon
+          name="person"
+          size={24}
+          style={[
+            styles.navBarIcon,
+            currentScreen === "Profile" && styles.navBarIconActive,
+          ]}
+        />
       </TouchableOpacity>
     </View>
   );
@@ -61,6 +94,9 @@ const styles = StyleSheet.create({
   },
   navBarIcon: {
     color: colors.light,
+  },
+  navBarIconActive: {
+    color: colors.primary,
   },
   historyButton: {
     backgroundColor: colors.black,
