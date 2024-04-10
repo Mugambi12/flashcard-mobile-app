@@ -1,27 +1,25 @@
-import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  StyleSheet,
-} from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import React, { useState } from "react";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
+import colors from "../../Styles/Colors";
 
 const Home = ({ onLogout }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleScroll = (event) => {
+    if (event.nativeEvent.contentOffset.y > 0) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.menu}>
-        <TouchableOpacity onPress={() => console.log("Menu pressed")}>
-          <Icon name="menu" size={24} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onLogout}>
-          <Icon name="logout" size={24} color="#fff" />
-        </TouchableOpacity>
-      </View>
-
-      <ScrollView contentContainerStyle={styles.content}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+      >
         <Text style={styles.title}>Dashboard</Text>
 
         {renderCard("Budget", "$2000")}
@@ -32,27 +30,6 @@ const Home = ({ onLogout }) => {
         {renderReportSection()}
         {renderTransactionSection()}
       </ScrollView>
-
-      <View style={styles.navBar}>
-        <TouchableOpacity onPress={() => console.log("Home pressed")}>
-          <Icon name="home" size={24} color="#007bff" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log("Money pressed")}>
-          <Icon name="attach-money" size={24} color="#007bff" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => console.log("History pressed")}
-          style={styles.historyButton}
-        >
-          <Icon name="list" size={36} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log("Settings pressed")}>
-          <Icon name="settings" size={24} color="#007bff" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log("Profile pressed")}>
-          <Icon name="person" size={24} color="#007bff" />
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
@@ -107,20 +84,6 @@ const renderTransactionSection = () => (
   </View>
 );
 
-const colors = {
-  primary: "#007bff",
-  secondary: "#6c757d",
-  success: "#28a745",
-  danger: "#dc3545",
-  warning: "#ffc107",
-  info: "#17a2b8",
-  light: "#f8f9fa",
-  dark: "#343a40",
-  black: "#000",
-  white: "#fff",
-  borderColor: "#ced4da",
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -129,26 +92,43 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   menu: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingTop: 50,
-    paddingBottom: 20,
     width: "100%",
     position: "absolute",
     top: 0,
     left: 0,
     zIndex: 1,
-    color: colors.white,
-    backgroundColor: colors.success,
+    backgroundColor: colors.light,
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   },
+  menuHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    paddingTop: 50,
+    paddingBottom: 10,
+    color: colors.white,
+  },
+  menuBody: {
+    alignItems: "center",
+    paddingTop: 10,
+    paddingBottom: 20,
+    color: colors.white,
+  },
+  menuTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  menuSubTitle: {
+    fontSize: 18,
+    marginBottom: 5,
+  },
+
   content: {
     flexGrow: 1,
     width: "100%",
     maxWidth: "100%",
     minWidth: "100%",
-    paddingTop: 100,
+    paddingTop: 170,
     paddingBottom: 70,
     paddingVertical: 20,
     paddingHorizontal: 10,
@@ -180,7 +160,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   section: {
-    backgroundColor: Colors.white,
+    backgroundColor: colors.white,
     padding: 20,
     marginBottom: 20,
     borderRadius: 10,
@@ -216,25 +196,33 @@ const styles = StyleSheet.create({
     height: 200,
     backgroundColor: colors.light,
   },
+
   navBar: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 20,
-    paddingTop: 15,
-    paddingBottom: 20,
+    paddingTop: 10,
+    paddingBottom: 15,
     width: "100%",
     position: "absolute",
     bottom: 0,
     left: 0,
     zIndex: 1,
-    backgroundColor: colors.light,
+    backgroundColor: colors.success,
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   },
+  navBarButton: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  navBarIcon: {
+    color: colors.light,
+  },
   historyButton: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.black,
     borderRadius: 50,
-    padding: 6,
-    marginTop: -12,
+    padding: 12,
+    marginLeft: 10,
   },
 });
 
