@@ -1,21 +1,30 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+
 import colors from "../../Styles/Colors";
 
 const Menu = ({ onLogout }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const handleScroll = (event) => {
-    if (event.nativeEvent.contentOffset.y > 0) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
+    const scrollOffset = event.nativeEvent.contentOffset.y;
+    setIsScrolled(scrollOffset > 20);
   };
 
   return (
-    <View style={styles.menu}>
+    <ScrollView
+      style={styles.menu}
+      contentContainerStyle={styles.content}
+      onScroll={handleScroll}
+      scrollEventThrottle={16}
+    >
       <View style={styles.menuHeader}>
         <TouchableOpacity onPress={() => console.log("Logo pressed")}>
           <Text style={styles.menuTitle}>Kipawa</Text>
@@ -30,7 +39,7 @@ const Menu = ({ onLogout }) => {
           <Text style={styles.menuTitle}>KES 100,500.00</Text>
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
