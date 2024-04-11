@@ -1,8 +1,17 @@
 import React from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { LineChart, BarChart, PieChart } from "react-native-chart-kit";
 
-import colors from "../../Styles/Colors";
+import {
+  screenWidth,
+  colors,
+  padding,
+  margin,
+  borderRadius,
+  boxShadow,
+  opacity,
+} from "../../Styles/Colors";
 
 const Home = () => {
   return (
@@ -10,11 +19,10 @@ const Home = () => {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <Text style={styles.title}>Dashboard</Text>
 
-        {renderCard("attach-money", "Budget", "KES 2000")}
-        {renderCard("money-off", "Expenses", "KES 1500")}
-        {renderCard("account-balance", "Savings", "KES 500")}
-
-        {renderChartSection()}
+        {renderCardSection()}
+        {renderBalanceTrendSection()}
+        {renderRecentTransactionSection()}
+        {renderExpensesStructureSection()}
         {renderReportSection()}
         {renderTransactionSection()}
       </ScrollView>
@@ -22,39 +30,214 @@ const Home = () => {
   );
 };
 
-const renderCard = (icon, title, value) => (
-  <View style={styles.card}>
-    <Icon name={icon} style={styles.cardIcons}></Icon>
-    <View style={styles.cardContent}>
-      <Text style={styles.cardTitle}>{title}</Text>
-      <Text style={styles.cardValue}>{value}</Text>
+const renderCardSection = () => (
+  <View style={styles.cardContainer}>
+    <View style={styles.card}>
+      <View style={styles.cardSection}>
+        <Icon
+          name="attach-money"
+          color={colors.primary}
+          style={styles.cardIcons}
+        />
+        <View style={styles.cardContent}>
+          <Text style={styles.cardTitle}>Budget</Text>
+          <Text style={styles.cardValue}>KES 2,000</Text>
+        </View>
+      </View>
+    </View>
+
+    <View style={styles.card}>
+      <View style={styles.cardSection}>
+        <Icon name="money-off" color={colors.danger} style={styles.cardIcons} />
+        <View style={styles.cardContent}>
+          <Text style={styles.cardTitle}>Expenses</Text>
+          <Text style={styles.cardValue}>KES 1,500</Text>
+        </View>
+      </View>
+    </View>
+
+    <View style={styles.card}>
+      <View style={styles.cardSection}>
+        <Icon
+          name="account-balance"
+          color={colors.success}
+          style={styles.cardIcons}
+        />
+        <View style={styles.cardContent}>
+          <Text style={styles.cardTitle}>Savings</Text>
+          <Text style={styles.cardValue}>KES 500</Text>
+        </View>
+      </View>
+    </View>
+
+    <View style={styles.card}>
+      <View style={styles.cardSection}>
+        <Icon
+          name="add-circle-outline"
+          color={colors.secondary}
+          style={styles.cardIcons}
+        />
+        <View style={styles.cardContent}>
+          <Text style={styles.cardValue}>Add</Text>
+          <Text style={styles.cardTitle}>New Card</Text>
+        </View>
+      </View>
     </View>
   </View>
 );
 
-const renderChartSection = () => (
+const getData = () => {
+  return {
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    datasets: [
+      {
+        data: [
+          Math.random() * 100,
+          Math.random() * 100,
+          Math.random() * 100,
+          Math.random() * 100,
+          Math.random() * 100,
+          Math.random() * 100,
+          Math.random() * 100,
+          Math.random() * 100,
+          Math.random() * 100,
+          Math.random() * 100,
+          Math.random() * 100,
+          Math.random() * 100,
+        ],
+      },
+    ],
+  };
+};
+
+const getChartConfig = () => {
+  return {
+    backgroundColor: colors.white,
+    backgroundGradientFrom: colors.white,
+    backgroundGradientTo: colors.light,
+    decimalPlaces: 1,
+    color: (opacity = 1) => `rgba(0, 251, 209, ${opacity})`,
+    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+    style: {
+      borderRadius: borderRadius.md,
+    },
+    propsForDots: {
+      r: "1",
+      strokeWidth: "2",
+      stroke: colors.success,
+    },
+    withVerticalLines: false,
+    withHorizontalLines: false,
+  };
+};
+
+const renderBalanceTrendSection = () => (
   <View style={styles.section}>
-    <Text style={styles.sectionTitle}>Visuals</Text>
+    <Text style={styles.sectionTitle}>Balance Trend Overview</Text>
 
-    <View style={styles.chartContainer}>
-      <Text style={styles.chartTitle}>Charts Title Goes Here</Text>
-      <Text style={styles.chartSubTitle}>Charts Title Goes Here</Text>
-      {/* Dummy chart component */}
-      <View style={styles.chart}></View>
+    <View style={styles.sectionContainer}>
+      <View style={styles.sectionRow}>
+        <View style={styles.sectionLeft}>
+          <Text style={styles.chartSubTitle}>Last 30 Days</Text>
+          <Text style={styles.chartTitle}>KES 100,000</Text>
+        </View>
+        <View style={styles.sectionRight}>
+          <Text style={styles.chartSubTitle}>vd past period</Text>
+          <Text style={styles.chartTitle}>0%</Text>
+        </View>
+      </View>
+
+      {/* Sample Line Chart */}
+      <LineChart
+        data={getData()}
+        width={styles.chartWidth.width}
+        height={220}
+        yAxisLabel=""
+        yAxisSuffix="k"
+        yAxisInterval={1}
+        chartConfig={getChartConfig()}
+        withVerticalLines={false}
+        withHorizontalLines={false}
+        bezier
+        style={styles.chartStyle}
+      />
+    </View>
+  </View>
+);
+
+const renderRecentTransactionSection = () => (
+  <View style={styles.section}>
+    <Text style={styles.sectionTitle}>Latest Transactions</Text>
+
+    <View style={styles.sectionRow}>
+      <Text style={styles.chartSubTitle}>Last 30 Days</Text>
+      <Text style={(styles.chartSubTitle, styles.sectionRight)}>
+        <Text style={[styles.chartSubTitle, styles.sectionRight]}>
+          Last 30 Days
+        </Text>
+        Last 30 Days
+      </Text>
     </View>
 
-    <View style={styles.chartContainer}>
-      <Text style={styles.chartTitle}>Charts Title Goes Here</Text>
-      <Text style={styles.chartSubTitle}>Charts Title Goes Here</Text>
-      {/* Dummy chart component */}
-      <View style={styles.chart}></View>
-    </View>
+    <ScrollView style={{ maxHeight: 200 }}>
+      <View
+        style={styles.sectionRow}
+        backgroundColor={colors.danger}
+        padding={padding.md}
+        borderRadius={borderRadius.md}
+        opacity={opacity.md}
+      >
+        <Text style={styles.chartTitle}>Last 30 Days</Text>
+        <View style={styles.sectionColumn}>
+          <Text style={styles.chartSubTitle}>Last 30 Days</Text>
+          <Text style={styles.chartTitle}>Last 30 Days</Text>
+        </View>
+        <View style={styles.sectionColumn}>
+          <Text style={styles.chartSubTitle}>Last 30 Days</Text>
+          <Text style={styles.chartTitle}>Last 30 Days</Text>
+        </View>
+      </View>
+    </ScrollView>
 
-    <View style={styles.chartContainer}>
-      <Text style={styles.chartTitle}>Charts Title Goes Here</Text>
-      <Text style={styles.chartSubTitle}>Charts Title Goes Here</Text>
-      {/* Dummy chart component */}
-      <View style={styles.chart}></View>
+    <Text>No recent transactions</Text>
+  </View>
+);
+
+const renderExpensesStructureSection = () => (
+  <View style={styles.section}>
+    <Text style={styles.sectionTitle}>Expense Structure</Text>
+
+    <View style={styles.sectionContainer}>
+      <Text style={styles.chartSubTitle}>Last 30 Days</Text>
+      <Text style={styles.chartTitle}>KES 1,500</Text>
+
+      {/* Sample Line Chart */}
+      <BarChart
+        data={getData()}
+        width={styles.chartWidth.width}
+        height={220}
+        yAxisLabel=""
+        yAxisSuffix="k"
+        yAxisInterval={1}
+        chartConfig={getChartConfig()}
+        withVerticalLines={false}
+        withHorizontalLines={false}
+        bezier
+        style={styles.chartStyle}
+      />
     </View>
   </View>
 );
@@ -78,43 +261,43 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    width: "100%",
+    width: Dimensions.get("window").width,
   },
   scrollViewContent: {
     paddingTop: 170,
     paddingBottom: 70,
-    paddingHorizontal: 10,
-    minWidth: "100%",
+    paddingHorizontal: padding.md,
+    width: Dimensions.get("window").width,
   },
   title: {
     fontSize: 24,
-    marginBottom: 20,
+    marginBottom: margin.md,
+  },
+  cardContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   },
   card: {
+    width: "48.5%",
+    marginBottom: margin.lg,
+  },
+  cardSection: {
     flexDirection: "row",
     backgroundColor: colors.white,
-    padding: 20,
-    marginBottom: 20,
-    borderRadius: 10,
-    shadowColor: colors.black,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    padding: padding.md,
+    borderRadius: borderRadius.md,
+    ...boxShadow,
   },
   cardIcons: {
     fontSize: 40,
-    color: colors.primary,
   },
   cardContent: {
-    marginLeft: 20,
+    marginLeft: margin.md,
   },
   cardTitle: {
     fontSize: 18,
-    marginBottom: 5,
+    marginBottom: margin.sm,
   },
   cardValue: {
     fontSize: 20,
@@ -122,40 +305,53 @@ const styles = StyleSheet.create({
   },
   section: {
     backgroundColor: colors.white,
-    padding: 20,
-    marginBottom: 20,
-    borderRadius: 10,
-    shadowColor: colors.black,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    padding: padding.md,
+    marginBottom: margin.md,
+    borderRadius: borderRadius.md,
+    ...boxShadow,
+  },
+  sectionContainer: {
+    marginBottom: margin.md,
+  },
+  sectionRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: padding.sm,
+  },
+  sectionColumn: {
+    flexDirection: "column",
+  },
+  sectionLeft: {
+    flex: 1,
+  },
+  sectionRight: {
+    flex: 1,
+    alignItems: "flex-end",
   },
   sectionTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 10,
-  },
-  chartContainer: {
-    alignItems: "center",
-    marginBottom: 20,
+    marginBottom: margin.sm,
   },
   chartTitle: {
     fontSize: 18,
-    marginBottom: 5,
+    marginBottom: margin.sm,
   },
   chartSubTitle: {
     fontSize: 14,
-    fontStyle: "italic",
-    marginBottom: 10,
+    marginBottom: margin.md,
   },
   chart: {
-    width: "100%",
+    width: Dimensions.get("window").width,
     height: 200,
-    backgroundColor: colors.light,
+    backgroundColor: colors.white,
+  },
+  chartWidth: {
+    width: Dimensions.get("window").width - 35,
+  },
+  chartStyle: {
+    marginVertical: padding.sm,
+    borderRadius: borderRadius.md,
   },
 });
 
