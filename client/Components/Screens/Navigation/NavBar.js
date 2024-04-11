@@ -85,7 +85,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     zIndex: 1,
-    backgroundColor: colors.success,
+    backgroundColor: colors.black,
+    backgroundGradientFrom: colors.primary,
+    backgroundGradientTo: colors.secondary,
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   },
   navBarButton: {
@@ -99,7 +101,7 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
   historyButton: {
-    backgroundColor: colors.black,
+    backgroundColor: colors.secondary,
     borderRadius: 50,
     padding: 12,
     marginLeft: 10,
