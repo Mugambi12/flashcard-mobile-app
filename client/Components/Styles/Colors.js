@@ -1,4 +1,3 @@
-// Defaults for screenwidth, colors, padding, margin, border radius, and box shadow
 import { Dimensions } from "react-native";
 
 const screenWidth = Dimensions.get("window").width;
